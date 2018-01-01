@@ -54,7 +54,9 @@ func stringToFloat(value string) float64 {
 	if value == "" || value == "None" || value == "?" || value == "> 9999" {
 		return 0
 	}
+
 	result, err := strconv.ParseFloat(value, 64)
+
 	if err != nil {
 		log.Fatal(err)
 	}
