@@ -6,3 +6,5 @@
 > env GOOS=darwin GOARCH=amd64 go build -v cmcexporter/src/coinmarketcap.go
 ## Or just run
 > go run cmcexporter/src/coinmarketcap.go
+## getting the dependency
+> go get -u github.com/gocolly/colly/...
