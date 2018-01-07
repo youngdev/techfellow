@@ -1,0 +1,76 @@
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: coin-exporter
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: coin-exporter
+      name: coin-exporter
+    spec:
+      hostNetwork: true
+      hostPID: true
+      containers:
+      - image: simonkwame/cmcexporter:v1
+        name: coin-exporter
+        ports:
+        - containerPort: 3099
+          hostPort: 3099
+          name: scrape
+      tolerations:
+        - effect: NoSchedule
+          operator: Exists
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: coin-exporter
+    k8s-app: coin-exporter
+  name: coin-exporter
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - name: http-metrics
+    port: 3099
+    protocol: TCP
+  selector:
+    app: coin-exporter
+---
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: coin-exporter
+  labels:
+    k8s-app: coin-exporter
+spec:
+  jobLabel: k8s-app
+  selector:
+    matchLabels:
+      k8s-app: coin-exporter
+  namespaceSelector:
+    matchNames:
+    - monitoring
+  endpoints:
+  - port: http-metrics
+    interval: 60s
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: coin-ingress
+  namespace: monitoring
+  annotations:
+    kubernetes.io/ingress.class: nginx
+spec:
+  rules:
+  - host: coinprometheus.techfollow.io
+    http:
+      paths:
+      - backend:
+          serviceName: prometheus-k8s
+          servicePort: 9090
