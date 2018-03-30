@@ -146,15 +146,15 @@ func metrics(w http.ResponseWriter, r *http.Request) {
 	io.WriteString(w, formatValue("## Export coinmarketcap coins for prometheus indexing and analysis", "", integerToString(up)))
 
 	for _, Coin := range jsonData {
-		io.WriteString(w, formatValue("coin_rank", "symbol=\""+Coin.Symbol+"\",name=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.CoinRank), 0)))
-		io.WriteString(w, formatValue("coin_price_usd", "symbol=\""+Coin.Symbol+"\",name=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.PriceUSD), 6)))
-		io.WriteString(w, formatValue("coin_price_btc", "symbol=\""+Coin.Symbol+"\",name=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.PriceBTC), 6)))
-		io.WriteString(w, formatValue("coin_24h_volume_usd", "symbol=\""+Coin.Symbol+"\",name=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.VolumeUsd24h), 1)))
-		io.WriteString(w, formatValue("coin_market_cap_usd", "symbol=\""+Coin.Symbol+"\",name=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.MarketCapUsd), 3)))
-		io.WriteString(w, formatValue("coin_circulating_supply", "symbol=\""+Coin.Symbol+"\",name=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.CircuSupply), 0)))
-		io.WriteString(w, formatValue("coin_percent_change_1h", "symbol=\""+Coin.Symbol+"\",name=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.PercentChange1h), 2)))
-		io.WriteString(w, formatValue("coin_percent_change_24h", "symbol=\""+Coin.Symbol+"\",name=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.PercentChange24h), 2)))
-		io.WriteString(w, formatValue("coin_percent_change_7d", "symbol=\""+Coin.Symbol+"\",name=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.PercentChange7d), 2)))
+		io.WriteString(w, formatValue("coin_rank", "coinsymbol=\""+Coin.Symbol+"\",coinname=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.CoinRank), 0)))
+		io.WriteString(w, formatValue("coin_price_usd", "coinsymbol=\""+Coin.Symbol+"\",coinname=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.PriceUSD), 6)))
+		io.WriteString(w, formatValue("coin_price_btc", "coinsymbol=\""+Coin.Symbol+"\",coinname=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.PriceBTC), 6)))
+		io.WriteString(w, formatValue("coin_24h_volume_usd", "coinsymbol=\""+Coin.Symbol+"\",coinname=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.VolumeUsd24h), 1)))
+		io.WriteString(w, formatValue("coin_market_cap_usd", "coinsymbol=\""+Coin.Symbol+"\",coinname=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.MarketCapUsd), 3)))
+		io.WriteString(w, formatValue("coin_circulating_supply", "coinsymbol=\""+Coin.Symbol+"\",coinname=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.CircuSupply), 0)))
+		io.WriteString(w, formatValue("coin_percent_change_1h", "coinsymbol=\""+Coin.Symbol+"\",coinname=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.PercentChange1h), 2)))
+		io.WriteString(w, formatValue("coin_percent_change_24h", "coinsymbol=\""+Coin.Symbol+"\",coinname=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.PercentChange24h), 2)))
+		io.WriteString(w, formatValue("coin_percent_change_7d", "coinsymbol=\""+Coin.Symbol+"\",coinname=\""+Coin.Name+"\"", floatToString(stringToFloat(Coin.PercentChange7d), 2)))
 	}
 }
 
