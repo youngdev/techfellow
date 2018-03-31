@@ -104,9 +104,9 @@ func scrapcmc() (string, error) {
 			Volume:            e.ChildAttr("a.volume", "data-usd"),
 			CirculatingSupply: e.ChildAttr(".circulating-supply > a", "data-supply"),
 			Marketcap:         finmarketcap,
-			Change1hr:         e.ChildAttr(".percent-1h", "data-usd"),
-			Change24hr:        e.ChildAttr(".percent-24h", "data-usd"),
-			Change7d:          e.ChildAttr(".percent-7d", "data-usd"),
+			Change1hr:         e.ChildAttr("td.no-wrap.percent-change.text-right:nth-child(8)", "data-percentusd"),
+			Change24hr:        e.ChildAttr("td.no-wrap.percent-change.text-right:nth-child(9)", "data-percentusd"),
+			Change7d:          e.ChildAttr("td.no-wrap.percent-change.text-right:nth-child(10)", "data-percentusd"),
 		}
 
 		coins = append(coins, coin)
